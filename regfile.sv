@@ -14,19 +14,17 @@ module regfile #(parameter N = 32)
 				64'd7,64'd6,64'd5,64'd4,
 				64'd3,64'd2,64'd1,64'd0};
 	
-	//Read logic
-	always_comb begin
+
+	always_ff@(posedge clk) begin
 		rd1 <= regbank[ra1];
 		rd2 <= regbank[ra2];
-	
 	end
 	
-	//Write logic
+	//Escribir los registros con la salida de #writeback
 	always_ff@(posedge clk) begin
 		if (we3) begin
 			if (wa3 != 31) regbank[wa3] <= wd3;
 		end
-	
 	end
 	
 endmodule
